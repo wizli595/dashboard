@@ -83,6 +83,9 @@ app.get("/check-auth", (req, res) => {
     res.json({ isAuthenticated: false });
   }
 });
+app.post("/register", (req, resp) => {
+  user.create();
+});
 // run the app
 app.listen(PORT, () => {
   console.log(`my app running on port ${PORT}`);
