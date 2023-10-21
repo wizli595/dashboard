@@ -29,31 +29,40 @@ app.use(
     saveUninitialized: false,
   })
 );
+// initialize passport as a middelware
 app.use(passport.initialize());
 app.use(passport.session());
+//error messages handler
 app.use(flash());
+//check authentication by session
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   return res.send({ error: "ur email or password is wrong " });
 }
-// create login and sign route
+// create routes
+
+//=>this route it just for checking or sending flash error
 app.get("/login", checkAuthenticated, (req, resp) => {
-  console.log(req.session);
+  // console.log(req.session);
   resp.send(req.session.flash);
 });
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/", // Redirect to a success page on successful login.
-    failureRedirect: "/login", // Redirect back to login page if there's an error.
-    failureFlash: true,
-  })
-);
+//=> confirm the success loging
 app.get("/", (req, res) => {
   res.send({ success: "Logged in successfully!", user: req.user });
 });
+//=> the main loging route uses the local stratgy in passport
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/", // Redirect to a success page on successful login
+    failureRedirect: "/login", // Redirect back to login page if there's an error
+    failureFlash: true,
+  })
+);
+
+//=> logout route
 app.get("/logout", (req, res) => {
   //   req.logout();
   req.session.destroy((err) => {
@@ -66,6 +75,7 @@ app.get("/logout", (req, res) => {
     // res.redirect("/login");
   });
 });
+//=> check the auth every time the client uses the app
 app.get("/check-auth", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true, user: req.user });

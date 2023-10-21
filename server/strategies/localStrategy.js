@@ -1,6 +1,7 @@
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const user = require("../database/schemas/userSchema");
+//=> create the local startegy
 passport.use(
   new localStrategy({ usernameField: "email" }, (email, password, done) => {
     user
@@ -14,10 +15,12 @@ passport.use(
       .catch((err) => done(err, null));
   })
 );
+//=> what data gonna be stord in the session
 passport.serializeUser((usr, done) => {
   console.log("serializeUser");
   done(null, usr.id);
 });
+//=>return the full user and attahed to the request
 passport.deserializeUser(async (id, done) => {
   try {
     const usr = await user.findById(id);
