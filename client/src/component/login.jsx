@@ -2,7 +2,9 @@ import { useState } from "react";
 import axios from 'axios';
 // import Profile from "./profile";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/useUser";
 const Login = () => {
+    const { setUser } = useUser()
     const navigate = useNavigate()
     const [info, setInfo] = useState({
         email: "",
@@ -24,7 +26,7 @@ const Login = () => {
             .then(rs => {
                 setStatus(rs.data)
                 if (rs.data.success) {
-                    console.log(rs.data)
+                    setUser(rs.data.user._id)
                     navigate("/profile")
                 }
 

@@ -6,8 +6,6 @@ import Profile from './component/profile';
 import AuthWrapper from './component/authWrapper';
 
 function App() {
-
-
   return (
     <>
       <Router>
@@ -15,8 +13,6 @@ function App() {
           <Route exact path='/' element={<Authenticate />} />
           <Route exact path='/login' element={<AuthWrapper><Login /></AuthWrapper>} />
           <Route exact path='/profile' element={<AuthWrapper><Profile /></AuthWrapper>} />
-
-
         </Routes>
       </Router>
     </>
