@@ -14,15 +14,15 @@ A dynamic dashboard application developed with React for the frontend and Expres
    - cd dashboard
 2. **Install dependencies**
 
-- npm i
+   - npm i
 
 3. **Setting up Environment Variables**
 
-- Set up your `.env` file with necessary configurations (if needed).
+   - Set up your `.env` file with necessary configurations (if needed).
 
 4. **Start the Development Server**
 
-- npm start dev
+   - npm start dev
 
 ## 🔍 Usage
 
