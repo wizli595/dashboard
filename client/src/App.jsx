@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Authenticate />} />
           <Route exact path='/login' element={<AuthWrapper><Login /></AuthWrapper>} />
-          <Route exact path='/sign' element={<SignUp />} />
+          <Route exact path='/sign' element={<AuthWrapper><SignUp /></AuthWrapper>} />
           <Route exact path='/profile' element={<AuthWrapper><Profile /></AuthWrapper>} />
         </Routes>
       </Router>

@@ -1,15 +1,22 @@
+import axios from "axios";
 import { useUser } from "../context/useUser";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
     const { user } = useUser()
-    console.log(user)
-    return (<>
-        {/* {user && <div>
-            <p>{user.username}</p>
-            <p>{user.email}</p>
-            <p>{user.createdAt.split("T")[0]}</p>
+    const [info, setInfo] = useState(null)
+    useEffect(() => {
+        axios.get("http://localhost:3000/user/" + user).then(res => {
+            setInfo(res.data)
+        }).catch(err => console.log(err))
+    }, [user])
 
-        </div>} */}
+    return (<>
+        {info && <div>
+            <p>{info.username}</p>
+            <p>{info.email}</p>
+            <p>{info.createdAt.split("T")[0]}</p>
+        </div>}
 
     </>);
 }

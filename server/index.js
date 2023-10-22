@@ -39,7 +39,7 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  return res.send({ error: "ur email or password is wrong " });
+  return res.send({ error: "somthinsg went wrong " });
 }
 // create routes
 
@@ -84,7 +84,25 @@ app.get("/check-auth", (req, res) => {
   }
 });
 app.post("/register", (req, resp) => {
-  user.create();
+  user
+    .create(req.body)
+    .then((res) => {
+      return resp.send({ success: "your acc is successfully Created!" });
+    })
+    .catch((err) => {
+      return resp.send({ error: "there's somthing wrong!" });
+    });
+});
+app.get("/user/:id", checkAuthenticated, (req, resp) => {
+  const { id } = req.params;
+  user
+    .findById(id)
+    .then((res) => {
+      return resp.send(res);
+    })
+    .catch((err) => {
+      return resp.send({ message: "there's somthing wrong!", error: err });
+    });
 });
 // run the app
 app.listen(PORT, () => {
