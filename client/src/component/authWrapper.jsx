@@ -2,8 +2,6 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-
 const AuthWrapper = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -22,7 +20,8 @@ const AuthWrapper = ({ children }) => {
                             navigate("/profile");
                         }
                     } else {
-                        if (location.pathname !== "/login") navigate("/sign");
+                        // if (location.pathname !== "/login")//
+                        navigate("/sign");
                     }
                 })
                 .catch(err => {
@@ -33,9 +32,6 @@ const AuthWrapper = ({ children }) => {
         }
     }, [navigate, location, isAuthenticated]);
     if (isLoading) return <div>Loading...</div>;
-
-
-
     return children;
 }
 AuthWrapper.propTypes = {
