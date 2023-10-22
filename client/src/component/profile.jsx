@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
     const { user } = useUser()
-    const [info, setInfo] = useState(null)
+    const [info, setInfo] = useState("")
     useEffect(() => {
         axios.get("http://localhost:3000/user/" + user).then(res => {
             setInfo(res.data)
