@@ -1,14 +1,14 @@
 // all imports
 require("./database/connection");
-require("./strategies/localStrategy");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("express-flash");
-const user = require("./database/schemas/userSchema");
 
+const userRoute = require("./routes/userRoute");
+const adminRoute = require("./routes/adminRoute");
 //initialize the app
 const app = express();
 const PORT = 3000;
@@ -34,76 +34,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 //error messages handler
 app.use(flash());
-//check authentication by session
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.send({ error: "somthinsg went wrong " });
-}
-// create routes
+// use the routes
+app.use("/", userRoute);
+app.use("/", adminRoute);
 
-//=>this route it just for checking or sending flash error
-app.get("/login", checkAuthenticated, (req, resp) => {
-  // console.log(req.session);
-  resp.send(req.session.flash);
-});
-//=> confirm the success loging
-app.get("/", (req, res) => {
-  res.send({ success: "Logged in successfully!", user: req.user });
-});
-//=> the main loging route uses the local stratgy in passport
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/", // Redirect to a success page on successful login
-    failureRedirect: "/login", // Redirect back to login page if there's an error
-    failureFlash: true,
-  })
-);
-
-//=> logout route
-app.get("/logout", (req, res) => {
-  //   req.logout();
-  req.session.destroy((err) => {
-    console.log(err);
-    if (!err) {
-      // Handle error during session destroy
-      console.error("Error destroying session:", err);
-      return res.status(500).send("Server error");
-    }
-    // res.redirect("/login");
-  });
-});
-//=> check the auth every time the client uses the app
-app.get("/check-auth", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ isAuthenticated: true, user: req.user });
-  } else {
-    res.json({ isAuthenticated: false });
-  }
-});
-app.post("/register", (req, resp) => {
-  user
-    .create(req.body)
-    .then((res) => {
-      return resp.send({ success: "your acc is successfully Created!" });
-    })
-    .catch((err) => {
-      return resp.send({ error: "there's somthing wrong!" });
-    });
-});
-app.get("/user/:id", checkAuthenticated, (req, resp) => {
-  const { id } = req.params;
-  user
-    .findById(id)
-    .then((res) => {
-      return resp.send(res);
-    })
-    .catch((err) => {
-      return resp.send({ message: "there's somthing wrong!", error: err });
-    });
-});
 // run the app
 app.listen(PORT, () => {
   console.log(`my app running on port ${PORT}`);
