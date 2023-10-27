@@ -17,7 +17,7 @@ const AuthWrapper = ({ children }) => {
                     if (rs.data.isAuthenticated) {
                         if (location.pathname === "/login" ||
                             location.pathname === "/sign") {
-                            navigate("/profile");
+                            navigate("/");
                         }
                     } else {
                         // if (location.pathname !== "/login")//

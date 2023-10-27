@@ -27,7 +27,7 @@ const Login = () => {
                 setStatus(rs.data)
                 if (rs.data.success) {
                     setUser(rs.data.user._id)
-                    navigate("/profile")
+                    navigate("/")
                 }
 
             })
