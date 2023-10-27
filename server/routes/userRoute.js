@@ -9,20 +9,32 @@ function checkAuthenticated(req, res, next) {
   }
   return res.send({ error: "somthinsg went wrong " });
 }
+function checkForAdmin(req, res, next) {
+  if (req.body.email === "admin" && req.body.password === "admin") {
+    return passport.authenticate("admin-local", {
+      successRedirect: "/admin",
+      failureRedirect: "/admin/login",
+      failureFlash: true,
+    })(req, res, next);
+  }
+  next();
+}
 // create routes
 //=>this route it just for checking or sending flash error
-route.get("/login", checkAuthenticated, (req, resp) => {
+route.get("/login", (req, resp) => {
   console.log(req.body);
   return resp.send(req.session.flash);
 });
 //=> confirm the success loging
 route.get("/", (req, res) => {
+  console.log("hh");
   res.send({ success: "Logged in successfully!", user: req.user });
 });
 //=> the main loging route uses the local stratgy in passport
 route.post(
   "/login",
-  passport.authenticate("local", {
+  checkForAdmin,
+  passport.authenticate("user-local", {
     successRedirect: "/", // Redirect to a success page on successful login
     failureRedirect: "/login", // Redirect back to login page if there's an error
     failureFlash: true,

@@ -8,7 +8,9 @@ const passport = require("passport");
 const flash = require("express-flash");
 
 const userRoute = require("./routes/userRoute");
-const adminRoute = require("./routes/adminRoute");
+const employeRoute = require("./routes/employees");
+const { adminRoute } = require("./routes/adminRoute");
+const isAdmin = require("./helpers/isAdmin");
 //initialize the app
 const app = express();
 const PORT = 3000;
@@ -37,6 +39,7 @@ app.use(flash());
 // use the routes
 app.use("/", userRoute);
 app.use("/", adminRoute);
+app.use("/employee", isAdmin, employeRoute);
 
 // run the app
 app.listen(PORT, () => {
