@@ -29,7 +29,7 @@ function App() {
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/sign' element={<SignUp />} />
         </Route>
-        {<Route exact path='*' element={<NotFound />} />}
+        <Route exact path='*' element={<NotFound />} />
         {/* <Route exact path='/profile' element={<AuthWrapper><Profile /></AuthWrapper>} /> */}
       </Routes>
     </Router>

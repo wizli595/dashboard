@@ -49,10 +49,10 @@ route.post("/create", (req, resp) => {
 // update user
 route.put("/update/:id", (req, rsp) => {
   const { id } = req.params;
-  const { name, email, age } = req.body;
+  const { username, email, age } = req.body;
   user
     .findByIdAndUpdate(id, {
-      name: name,
+      username: username,
       email: email,
       age: age,
     })

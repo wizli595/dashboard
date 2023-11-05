@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import useSignIn from "../hooks/useSignIn";
 const SignUp = () => {
-    const [status, setStatus] = useState(null)
     const [data, setData] = useState({
         username: "",
         email: "",
         password: ""
     })
+    const {status,handleSign}=useSignIn(data)
     const handleChange = (e) => {
         const { name, value } = e.target
         setData(prv => {
@@ -17,15 +18,10 @@ const SignUp = () => {
             }
         })
     }
-    const handleResgister = (e) => {
-        e.preventDefault()
-        axios.post("http://localhost:3000/register", data).then(res => {
-            setStatus(res.data)
-        }).catch(err => setStatus(err))
-    }
+    
     return (<><div className="h-full flex justify-center items-center flex-col bg-slate-200">
         <div className=" font-bold text-2xl m-3 underline uppercase">register</div>
-        <form className="p-5 border rounded-lg  bg-white " onSubmit={handleResgister}>
+        <form className="p-5 border rounded-lg  bg-white " onSubmit={handleSign}>
             {<div className={`  text-center font-bold m-2 ${status?.error ? "text-red-600 " : "text-green-600"}`} >{status?.error || status?.success}</div>}
             <div className="p-2 flex justify-between ">
                 <label htmlFor="username" className="block capitalize text-center "  >username :</label>

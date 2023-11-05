@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       required: true,
     },
+    age: {
+      type: mongoose.SchemaTypes.Number,
+      required: true,
+    },
     createdAt: {
       type: mongoose.SchemaTypes.Date,
       required: true,

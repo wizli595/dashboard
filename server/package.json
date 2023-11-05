@@ -24,5 +24,12 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-session": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.5",
+    "@types/express-flash": "^0.0.4",
+    "@types/express-session": "^1.17.9",
+    "@types/passport": "^1.0.14",
+    "@types/passport-local": "^1.0.37"
   }
 }

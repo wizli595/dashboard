@@ -2,15 +2,15 @@ import { useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/useUser";
+import useLogIn from "../hooks/useLogIn";
 
 const Login = () => {
-    const { setUser } = useUser()
-    const navigate = useNavigate()
     const [info, setInfo] = useState({
         email: "",
         password: ""
     })
-    const [status, setStatus] = useState("")
+    const {status,handleLogIn}=useLogIn(info)
+    
     const handleChange = (e) => {
         const { name, value } = e.target
         setInfo(prv => {
@@ -19,24 +19,11 @@ const Login = () => {
                 [name]: value
             }
         })
-    }
-    const handleSunmit = (e) => {
-        e.preventDefault()
-        axios.post("http://localhost:3000/login", info)
-            .then(rs => {
-                setStatus(rs.data)
-                if (rs.data.success) {
-                    setUser(rs.data.user._id)
-                    navigate("/")
-                }
-
-            })
-            .catch(err => setStatus(err.error))
-    }
+    };
 
     return (<div className="h-full flex justify-center items-center flex-col bg-slate-200">
         <div className=" font-bold text-2xl m-3 underline">LOG IN</div>
-        <form onSubmit={handleSunmit} className="p-5 border rounded-lg  bg-white " >
+        <form onSubmit={handleLogIn} className="p-5 border rounded-lg  bg-white " >
             {<div className=" text-red-600 text-center font-bold m-2">{status?.error}</div>}
             <div className="p-2 flex justify-between ">
                 <label htmlFor="email" className="block capitalize text-center "  >email :</label>

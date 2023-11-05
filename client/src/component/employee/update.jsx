@@ -6,7 +6,7 @@ import svg from '../../assets/cls.svg';
 
 const Update = ({ usr, show }) => {
     const [nInfo, setNinfo] = useState({
-        name: "",
+        username: "",
         email: "",
         age: 0,
     })
@@ -48,14 +48,14 @@ const Update = ({ usr, show }) => {
                     </label>
                     <input
                         type="name"
-                        name="name"
+                        name="username"
                         className="bg-gray-50 border
                          border-gray-300 text-gray-900 
                          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
                         block w-full p-2.5 dark:bg-gray-600 
                         dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder={usr.name}
-                        value={nInfo.name}
+                        value={nInfo.username}
                         onChange={(e) => handleChange(e, setNinfo)}
                         required />
                 </div>

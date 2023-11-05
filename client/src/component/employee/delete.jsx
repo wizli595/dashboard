@@ -27,7 +27,7 @@ const Delete = () => {
                 inline-flex items-center "
                     onClick={() => {
                         handleDelete(id);
-                        navigate("/api-crud/")
+                        navigate("/admin/display")
                     }}>
                     Delete
                     <p>

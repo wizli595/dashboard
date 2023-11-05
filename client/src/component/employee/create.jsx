@@ -5,8 +5,9 @@ import handleChange from "../../helprs/handleChange";
 
 const Create = () => {
     const [info, setInfo] = useState({
-        name: "",
+        username: "",
         email: "",
+        password:"123",
         age: "",
     })
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ const Create = () => {
         handlePost(info)
     }
     useEffect(() => {
-        if (status === "Created") navigate("/api-crud/")
+        if (status === "Created") navigate("/admin/display")
     })
     return <>
         <div className="container h-screen flex justify-center items-center m-auto">
@@ -33,7 +34,7 @@ const Create = () => {
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            name="name"
+                            name="username"
                             className="block py-2.5 px-0
                      w-full text-sm  dark:text-gray-400  
                      bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
@@ -41,7 +42,7 @@ const Create = () => {
                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                      focus:border-blue-600 peer"
                             placeholder=" "
-                            value={info.name}
+                            value={info.username}
                             onChange={(e) => handleChange(e, setInfo)}
                             required />
                         <label

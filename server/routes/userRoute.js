@@ -45,12 +45,12 @@ route.post(
 route.get("/logout", (req, res) => {
   //   req.logout();
   req.session.destroy((err) => {
-    console.log(err);
+    // console.log(err);
     if (!err) {
       // Handle error during session destroy
-      console.error("Error destroying session:", err);
-      return res.status(500).send("Server error");
+      return res.status(500).send("u logout successfully");
     }
+    return console.error("Error destroying session:", err);
     // res.redirect("/login");
   });
 });
@@ -62,6 +62,7 @@ route.get("/check-auth", (req, res) => {
     res.json({ isAuthenticated: false });
   }
 });
+//=>sgin route
 route.post("/register", (req, resp) => {
   user
     .create(req.body)
@@ -72,6 +73,7 @@ route.post("/register", (req, resp) => {
       return resp.send({ error: "there's somthing wrong!" });
     });
 });
+//=> get a user but only if you autentacated
 route.get("/user/:id", checkAuthenticated, (req, resp) => {
   const { id } = req.params;
   user
